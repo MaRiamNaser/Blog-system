@@ -19,33 +19,37 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/admin/login', [AdminController::class, 'login']);
-Route::post('/admin/login', [AdminController::class, 'submit_login']);
-Route::get('/admin/logout', [AdminController::class, 'logout']);
+// Route::get('/', function(){
+//     return view('welcome');
+// });
 
-
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
-
-// Categories
-Route::get('admin/category/{id}/delete', [CategoryController::class, 'destroy']);
-Route::resource('admin/category', CategoryController::class);
-
-// Posts
-Route::get('admin/post/{id}/delete', [PostController::class, 'destroy']);
-Route::resource('admin/post', PostController::class);
-
-
-// Settings
-Route::get('/admin/setting', [SettingController::class, 'index']);
-Route::post('/admin/setting', [SettingController::class, 'save_settings']);
-
+Route::get('/', [HomeController::class, 'index']);
 Route::get('/detail/{slug}/{id}', [HomeController::class, 'detail']);
 Route::get('/all-categories', [HomeController::class, 'all_category']);
 Route::get('/category/{slug}/{id}', [HomeController::class, 'category']);
 Route::post('/save-comment/{slug}/{id}', [HomeController::class, 'save_comment']);
 Route::get('save-post-form', [HomeController::class, 'save_post_form']);
 Route::post('save-post-form', [HomeController::class, 'save_post_data']);
-Route::get('/', [HomeController::class, 'index']);
+// Admin Routes
+Route::get('/admin/login', [AdminController::class, 'login']);
+Route::post('/admin/login', [AdminController::class, 'submit_login']);
+Route::get('/admin/logout', [AdminController::class, 'logout']);
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
+// Post
+Route::get('admin/user', [AdminController::class, 'users']);
+Route::get('admin/user/delete/{id}', [AdminController::class, 'delete_user']);
+// Comment
+Route::get('admin/comment', [AdminController::class, 'comments']);
+Route::get('admin/comment/delete/{id}', [AdminController::class, 'delete_comment']);
+// Categories
+Route::get('admin/category/{id}/delete', [CategoryController::class, 'destroy']);
+Route::resource('admin/category', CategoryController::class);
+// Posts
+Route::get('admin/post/{id}/delete', [PostController::class, 'destroy']);
+Route::resource('admin/post', PostController::class);
+// Settings
+Route::get('/admin/setting', [SettingController::class, 'index']);
+Route::post('/admin/setting', [SettingController::class, 'save_settings']);
 
 Auth::routes();
 

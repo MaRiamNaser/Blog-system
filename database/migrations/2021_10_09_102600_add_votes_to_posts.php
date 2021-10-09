@@ -14,7 +14,7 @@ class AddVotesToPosts extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->integer('views')->default(0);
+            $table->integer('views');
         });
     }
 
@@ -26,7 +26,7 @@ class AddVotesToPosts extends Migration
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->integer('views')->default(0);
+            $table->integer('views');
         });
     }
 }
