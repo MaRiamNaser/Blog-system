@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SettingController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,4 +40,9 @@ Route::get('/admin/setting', [SettingController::class, 'index']);
 Route::post('/admin/setting', [SettingController::class, 'save_settings']);
 
 Route::get('/detail/{slug}/{id}', [HomeController::class, 'detail']);
-Route::get('/', [HomeController::class, 'home']);
+Route::post('/save-comment/{slug}/{id}', [HomeController::class, 'save_comment']);
+Route::get('/', [HomeController::class, 'index']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
