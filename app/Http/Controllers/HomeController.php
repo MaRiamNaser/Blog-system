@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Post;
+use Illuminate\Routing\Controller;
+
+class HomeController extends Controller
+{
+
+
+    function home(Request $request)
+    {
+        // $posts=Post::orderBy('id','desc')->simplePaginate(1);
+        if ($request->has('q')) {
+            $q = $request->q;
+            $posts = Post::where('title', 'like', '%' . $q . '%')->orderBy('id', 'desc')->paginate(1);
+        } else {
+            $posts = Post::orderBy('id', 'desc')->paginate(1);
+        }
+        return view('home', ['posts' => $posts]);
+    }
+
+
+    // Post Detail
+    function detail(Request $request, $slug, $postId)
+    {
+        $detail = Post::find($postId);
+        return view('detail', ['detail' => $detail]);
+    }
+}
