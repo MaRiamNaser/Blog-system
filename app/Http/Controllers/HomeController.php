@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Models\Post;
@@ -9,6 +10,8 @@ use Illuminate\Routing\Controller;
 
 class HomeController extends Controller
 {
+
+
 
 
     function index(Request $request)
@@ -34,6 +37,21 @@ class HomeController extends Controller
         return view('detail', ['detail' => $detail]);
     }
 
+
+    // All posts according to the category
+    function category(Request $request, $cat_slug, $cat_id)
+    {
+        $category = Category::find($cat_id);
+        $posts = Post::where('cat_id', $cat_id)->orderBy('id', 'desc')->paginate(1);
+        return view('category', ['posts' => $posts, 'category' => $category]);
+    }
+
+    // All Categories
+    function all_category()
+    {
+        $categories = Category::orderBy('id', 'desc')->paginate(5);
+        return view('categories', ['categories' => $categories]);
+    }
 
     // Save Comment
     function save_comment(Request $request, $slug, $id)

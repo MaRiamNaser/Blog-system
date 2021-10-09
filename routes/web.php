@@ -40,6 +40,8 @@ Route::get('/admin/setting', [SettingController::class, 'index']);
 Route::post('/admin/setting', [SettingController::class, 'save_settings']);
 
 Route::get('/detail/{slug}/{id}', [HomeController::class, 'detail']);
+Route::get('/all-categories', [HomeController::class, 'all_category']);
+Route::get('/category/{slug}/{id}', [HomeController::class, 'category']);
 Route::post('/save-comment/{slug}/{id}', [HomeController::class, 'save_comment']);
 Route::get('/', [HomeController::class, 'index']);
 
