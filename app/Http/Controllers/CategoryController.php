@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -123,6 +124,8 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::where('id', $id)->delete();
+        $posts = Post::where('cat_id', $id);
+        $posts->delete();
         return redirect('admin/category');
     }
 }
